@@ -28,10 +28,10 @@ CoorDesc(delta, z, time, p, N, knot, maxit = 300, rate = 0.05,
 }
 \value{
 return a list of the following values
-beta :  1 denotes selected variables and 0 denotes unselected variables.
-time :  the used time
-convergence : whether it's converge within maximum iteration steps
-key  :  the number of iterations
+*beta :  1 denotes selected variables and 0 denotes unselected variables.
+*time :  the used time
+*onvergence : whether it's converge within maximum iteration steps
+*key  :  the number of iterations
 }
 \description{
 This function implements the coordinate-wise gradient boosting algorithm

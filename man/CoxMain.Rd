@@ -28,10 +28,10 @@ CoxMain(delta, z, time, p, N, knot = 6, maxit = 300, rate = 0.05,
 }
 \value{
 return a list of the following values
-beta :  1 denotes selected variables and 0 denotes unselected variables.
-time :  the used time
-convergence : whether it's converge within maximum iteration steps
-key  :  the number of iterations
+*beta :  1 denotes selected variables and 0 denotes unselected variables.
+*time :  the used time
+*convergence : whether it's converge within maximum iteration steps
+*key  :  the number of iterations
 }
 \description{
 The main function using block-wise mm-boosting algorithm

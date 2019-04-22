@@ -9,14 +9,16 @@
 #' @param maxit the number of maximum iterations
 #' @param rate the learning rate
 #' @param tol the convergence threshold
-#' @import splines
 #' 
-#' @export
+#' 
 #' @return return a list of the following values
-#' beta :  1 denotes selected variables and 0 denotes unselected variables.
-#' time :  the used time
-#' convergence : whether it's converge within maximum iteration steps
-#' key  :  the number of iterations
+#' *beta :  1 denotes selected variables and 0 denotes unselected variables.
+#' *time :  the used time
+#' *convergence : whether it's converge within maximum iteration steps
+#' *key  :  the number of iterations
+#' @import splines
+#' @useDynLib CoxAdditive, .registration = TRUE
+#' @export
 
 
 
@@ -50,8 +52,6 @@ CoxMain <- function(delta, z, time, p ,N, knot = 6 , maxit = 300, rate = 0.05, t
     GD        <- NULL
     likelihood<- NULL
     update_all<- NULL
-    #L1_summary <- NULL
-    #L2_summary <- NULL
     for (j in 1:p){
       beta_j     <- rep(0,knot-1)                            # initilize 
       result     <- ddloglik(N,delta,bs8[[j]],beta_j,offset) # call the rcpp function to get first and second-order derivative, and partial likelihood                                  
@@ -60,9 +60,6 @@ CoxMain <- function(delta, z, time, p ,N, knot = 6 , maxit = 300, rate = 0.05, t
       update_all <- rbind(update_all,update)
       GD[j]      <- sum(result$L1*as.numeric(update))        # get the L1*(L_2)^{-1}*L1
       likelihood[j] <- sum(result$partial_likelihood)/N      
-      #L1_summary=cbind(L1_summary,result$L1)
-      #L2_summary=cbind(L2_summary,result$L2)
-      #z_spline=cbind(z_spline, bs8)
     }
     
     j_star              <- which(GD==max(GD))                # choose the maximum as the optimal block.

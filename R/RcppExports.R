@@ -2,13 +2,14 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #' An Rcpp function that calculates the first and second order derivate and partial likelihood function.
-#' @param N The sample size
-#' @param delta Event indicator
-#' @param z Covariate matrix
-#' @param beta The coefficient
-#' @param offset The whole spanned matrix
+#' @param N   The sample size
+#' @param delta   Event indicator
+#' @param z   Covariate matrix
+#' @param beta   The coefficient
+#' @param offset   The whole spanned matrix
+#' 
 #' @return the first and second derivate and partial likelihood
 ddloglik <- function(n, delta, z, beta, offset) {
-    .Call('_CoxAdditive_ddloglik', PACKAGE = 'CoxAdditive', n, delta, z, beta, offset)
+    .Call(`_CoxAdditive_ddloglik`, n, delta, z, beta, offset)
 }
 

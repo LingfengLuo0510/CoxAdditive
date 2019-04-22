@@ -17,12 +17,14 @@ normalize = function(x){
 }
 
 #' The evaluation function 
+#' @param TrueBeta  the true beta
+#' @param beta the result beta from the algorithm
 #' @return a list of the following values
-#' FP:  false positive 
-#' FN:  false negative
-#' Se:  Senstitivity
-#' Sp:  Specificity
-#' FDP: False positive portion
+#' *FP:  false positive 
+#' *FN:  false negative
+#' *Se:  Senstitivity
+#' *Sp:  Specificity
+#' *FDP: False positive portion
 #' 
 #' @export
 FPFNSeSpLik=function(TrueBeta=TrueBeta,beta=beta){
@@ -37,21 +39,21 @@ FPFNSeSpLik=function(TrueBeta=TrueBeta,beta=beta){
 
 
 #' Simulation function
-#' the function for simulating data
+#' This function is for simulating data
 #' @param N sample size
 #' @param p number of parameters
 #' @param p_true number of true parameters
-#' @param m1
-#' @param knot
+#' @param m1 default is 100
+#' @param knot the number of basis functions for non-linear predictors
 #' @import mvtnorm
 #' @return a list of the following values
 #' 
-#' delta: event indicator
-#' z: Covariate matrix
-#' time: the death time
-#' p: number of variables
-#' N: the sample size
-#' knot: the number of basis functions for non-linear predictors
+#' *delta: event indicator
+#' *z: Covariate matrix
+#' *time: the death time
+#' *p: number of variables
+#' *N: the sample size
+#' *knot: the number of basis functions for non-linear predictors
 #' 
 #' 
 #' @export
@@ -62,29 +64,30 @@ simul  <- function(N = 1000, p = 500, p_true = 5, m1 = 100, knot = 10){
   z           <- NULL
   j           <- 0
   
+  #Simulate z
   while(j<(p/m1)){
     j    <- j+1
     z    <- cbind(z,rmvnorm(N, mean=rep(0,m1), sigma=Corr1))
   }
-  
   z      <- apply(z,2,normalize)
   z2     <- z**2
   
-  ####True beta
+  #Simulate True beta
   TrueBeta       <- rep(0, p)
   TrueBeta_index <- sample(1:p,p_true,replace=FALSE)
   signbeta       <- sample(c(-1,1),p_true,replace=T)
-  #signbeta=rep(1,p_true)
   mag            <- runif(p_true, 1,2)
   TrueBeta[TrueBeta_index]  <- mag*signbeta
   xbeta          <- z2%*%TrueBeta
   U              <- runif(N, 0, 1)
+  #Simulate the time and death indicator
   pre_time       <- -log(U)/(1*exp(xbeta))
   pre_censoring  <- runif(N,1,30)
   pre_censoring  <- pre_censoring*(pre_censoring<3)+3*(pre_censoring>=3)
   tcens          <- (pre_censoring<pre_time) # censoring indicator
   delta          <- 1-tcens
   time           <- pre_time*(delta==1)+pre_censoring*(delta==0)
+  #order delta, z and time by time.
   delta          <- delta[order(time)]
   z              <- z[order(time),]
   time           <- time[order(time)]

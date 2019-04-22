@@ -5,7 +5,6 @@
 \title{\packageTitle{CoxAdditive}}
 \description{\packageDescription{CoxAdditive}}
 \details{
-  The DESCRIPTION file: \packageDESCRIPTION{CoxAdditive}
   \packageIndices{CoxAdditive}
 
   This package provides a simulating function, and two main functions implementing coordinate-wise gradient ascent and mmboosting algorithm.

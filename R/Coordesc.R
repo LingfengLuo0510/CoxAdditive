@@ -10,14 +10,14 @@
 #' @param rate the learning rate
 #' @param tol the convergence threshold
 #' 
+#'
 #' @return return a list of the following values
-#' beta :  1 denotes selected variables and 0 denotes unselected variables.
-#' time :  the used time
-#' convergence : whether it's converge within maximum iteration steps
-#' key  :  the number of iterations
-
-
-
+#' *beta :  1 denotes selected variables and 0 denotes unselected variables.
+#' *time :  the used time
+#' *onvergence : whether it's converge within maximum iteration steps
+#' *key  :  the number of iterations
+#' @useDynLib CoxAdditive, .registration = TRUE
+#' @export
 CoorDesc <- function(delta, z, time, p ,N, knot , maxit = 300, rate = 0.05, tol = 1e-3){
   
   # set initial values
@@ -46,9 +46,6 @@ CoorDesc <- function(delta, z, time, p ,N, knot , maxit = 300, rate = 0.05, tol 
     GD        <- NULL
     likelihood<- NULL
     update_all<- NULL
-    #z_spline=NULL
-    #L1_summary=NULL
-    #L2_summary=NULL
     for (j in 1:p){
       beta_j     <- rep(0,knot-1)                                # initilize         
       result     <- ddloglik(N,delta,bs8[[j]],beta_j,offset)     # call the rcpp function to get first-order derivative, and partial likelihood                                  
@@ -56,9 +53,6 @@ CoorDesc <- function(delta, z, time, p ,N, knot , maxit = 300, rate = 0.05, tol 
       update_all <- rbind(update_all,update)                   
       GD[j]      <- sum(result$L1*as.numeric(update))            
       likelihood[j] <- sum(result$partial_likelihood)/N
-      # L1_summary=cbind(L1_summary,result$L1)
-      #L2_summary=cbind(L2_summary,result$L2)
-      #z_spline=cbind(z_spline, bs8)
     }
     
     j_star              <- which(GD==max(GD))                    # choose the maximum as the optimal block.
@@ -89,6 +83,7 @@ CoorDesc <- function(delta, z, time, p ,N, knot , maxit = 300, rate = 0.05, tol 
   select_group_key2[select_group_key] <- 1
   time_used   <- proc.time()-time_old
   
+  # return the result
   return( list(beta = select_group_key2, time = time_used[3] ,convergence = converge,key = key ) )  
 }
 

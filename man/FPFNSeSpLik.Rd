@@ -6,13 +6,18 @@
 \usage{
 FPFNSeSpLik(TrueBeta = TrueBeta, beta = beta)
 }
+\arguments{
+\item{TrueBeta}{the true beta}
+
+\item{beta}{the result beta from the algorithm}
+}
 \value{
 a list of the following values
-FP:  false positive 
-FN:  false negative
-Se:  Senstitivity
-Sp:  Specificity
-FDP: False positive portion
+*FP:  false positive 
+*FN:  false negative
+*Se:  Senstitivity
+*Sp:  Specificity
+*FDP: False positive portion
 }
 \description{
 The evaluation function

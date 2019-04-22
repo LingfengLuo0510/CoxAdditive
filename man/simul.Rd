@@ -3,7 +3,7 @@
 \name{simul}
 \alias{simul}
 \title{Simulation function
-the function for simulating data}
+This function is for simulating data}
 \usage{
 simul(N = 1000, p = 500, p_true = 5, m1 = 100, knot = 10)
 }
@@ -13,18 +13,22 @@ simul(N = 1000, p = 500, p_true = 5, m1 = 100, knot = 10)
 \item{p}{number of parameters}
 
 \item{p_true}{number of true parameters}
+
+\item{m1}{default is 100}
+
+\item{knot}{the number of basis functions for non-linear predictors}
 }
 \value{
 a list of the following values
 
-delta: event indicator
-z: Covariate matrix
-time: the death time
-p: number of variables
-N: the sample size
-knot: the number of basis functions for non-linear predictors
+*delta: event indicator
+*z: Covariate matrix
+*time: the death time
+*p: number of variables
+*N: the sample size
+*knot: the number of basis functions for non-linear predictors
 }
 \description{
 Simulation function
-the function for simulating data
+This function is for simulating data
 }
