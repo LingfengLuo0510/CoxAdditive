@@ -1,5 +1,7 @@
 # CoxAdditive
-#The example code to install this package and run the code:
+# The example code to install this package and run the code:
+library(devtools)
+install_github("https://github.com/LingfengLuo0510/CoxAdditive")
 
 library(Rcpp)
 library(RcppArmadillo)
