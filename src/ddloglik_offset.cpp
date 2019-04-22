@@ -6,13 +6,12 @@ using namespace std;
 using namespace Rcpp;
 
 //' An Rcpp function that calculates the first and second order derivate and partial likelihood function.
-//' @param N the sample size
-//' @param delta event indicator
+//' @param N The sample size
+//' @param delta Event indicator
 //' @param z Covariate matrix
-//' @param beta the coefficient
-//' @param offset the whole spanned matrix
+//' @param beta The coefficient
+//' @param offset The whole spanned matrix
 //' @return the first and second derivate and partial likelihood
-
 // [[Rcpp::export]]
 List ddloglik(int n, arma::colvec delta, arma::mat z, arma::colvec beta, arma::mat offset){
   int col   = beta.n_rows;     // row number of beta
