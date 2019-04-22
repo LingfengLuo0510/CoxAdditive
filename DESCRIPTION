@@ -1,0 +1,12 @@
+Package: CoxAdditive
+Type: Package
+Title: Block-wise gradient boosting algorithm on cox additive models
+Version: 1.0
+Date: 2019-04-20
+Author: Lingfeng Luo
+Maintainer: Lingfeng Luo <lfluo@umich.edu>
+Description: This package provides a simulating function, and two main functions implementing coordinate-wise gradient ascent and mmboosting algorithm.
+License: GPL-3
+Imports: Rcpp (>= 1.0.1),mvtnorm,splines
+LinkingTo: Rcpp, RcppArmadillo
+RoxygenNote: 6.1.1
